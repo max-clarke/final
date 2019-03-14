@@ -206,10 +206,10 @@ def make_spotify_row(lastfm_artist_track):
     row = (lastfm_artist_track, spotify_artist_track) + features
     return row
 
-def spotify_insert_row(lastfm_track):
-    q = """
+def spotify_insert_row(lastfm_track, table='spotify_features'):
+    q = f"""
     INSERT INTO 
-        spotify_features (
+        {table} (
             lastfm_artist_track,
             spotify_artist_track,
             danceability,
