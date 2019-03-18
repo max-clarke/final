@@ -53,11 +53,20 @@ SELECT arist_track FROM lastfm
 cursor.execute(q)
 lastfm_tracks = cursor.fetchall()
 
+# todo:
+# have it pick up where it left off
+
 print('beggining psql insertion...')
 print()
 
 # Get spotify features and insert into psql table
+
+last_known_track = 'Robert Glasper Experiment Afro Blue - feat. Erykah Badu'
+start_insert = False
 for track in lastfm_tracks:
-    data_collection.spotify_insert_row(track[0], table='popular_spotify_features')
-    time.sleep(.08)
+    if track[0] == last_known_track:
+        start_insert = True
+    if start_insert:
+        data_collection.spotify_insert_row(track[0], table='popular_spotify_features')
+        time.sleep(.08)
 
